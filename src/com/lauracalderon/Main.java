@@ -8,8 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-
             Deck deck = new Deck();
             deck.labaraja();
 
@@ -27,7 +25,6 @@ public class Main {
                 System.out.println("3 Carta al azar");
                 System.out.println("4 Generar una mano de 5 cartas");
                 System.out.println("0 Salir");
-
 
 
                 try {
@@ -54,18 +51,22 @@ public class Main {
                             salir = true;
                             System.out.println("Fin del Juego");
                             break;
+                        default:
+                            throw new IllegalStateException("Opcion no valida: "+opcion);
 
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("Tienes que introducir un numero!!!");
+                    System.out.println("Opcion no valida");
                     sn.next();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
 
         }
 
-
+}
             /*Deck deck = new Deck();
             deck.labaraja();
 
@@ -77,4 +78,3 @@ public class Main {
 
 
 
-}

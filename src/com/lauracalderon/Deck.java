@@ -9,6 +9,7 @@ public class Deck {
     private HashMap<String,String> PALOS = new HashMap<String, String>();
     private ArrayList<Card> mimazo = new ArrayList<Card>(); //se refiere al mazo con el que estas jugando
     private String strFormat = "Quedan %s";
+    int e;
 
     public ArrayList<Card> getMimazo() { //este metodo manda a llamar la clase Card
         return mimazo;
@@ -19,6 +20,7 @@ public class Deck {
         PALOS.put("Trebol", "Negro");
         PALOS.put("Pica", "Negro");
         PALOS.put("Corazon", "Rojo");
+
     }
 
     public void labaraja(){ //en este metodo crea todas las cartas se podria es ciclo(constructor)
@@ -40,41 +42,49 @@ public class Deck {
         System.out.println("Se mezcló el Deck");
     }
 
-    public void head(){   //muestra la primera carta del Deck
+
+    public void head()throws Exception{   //muestra la primera carta del Deck
         var card = mimazo.get(mimazo.size()-1);
         mimazo.remove(card);
         System.out.println(card.toString());
         System.out.println(String.format(strFormat,mimazo.size()));
+        e = mimazo.size();
+        if(e == 0){
+            throw new Exception("Ya no quedan cartas");
+        }return;
+
     }
     private Card randomCard(){  //Agarra cualquier carta al azar
-        //inicio - final - constante - el tamaño
-        var rnd = (int)Math.floor(Math.random()*(1-mimazo.size()+1)+mimazo.size());
+        var max = mimazo.size() -1;
+        var rnd = (int)Math.floor(Math.random()*(0-max+1)+max);
         return mimazo.get(rnd);
     }
-    public void pick(){  //sacar una carta random del mazo
+    public Card pick()throws Exception{  //sacar una carta random del mazo
         var card = randomCard();
         mimazo.remove(card);
         System.out.println(card.toString());
         System.out.println(String.format(strFormat,mimazo.size()));
+        e = mimazo.size();
+        if(e == 0){
+            throw new Exception("Ya no quedan cartas");
+        }
+        return card;
     }
     private void printHand(ArrayList<Card> cards){
         for (var card: cards) System.out.println(card.toString());
     }
-    public void hand(){  //sacar una mano de 5 cartas
-        if(mimazo.size() <= 5){
-            for (var card:mimazo){
-                printHand(mimazo);
+    public void hand() throws Exception {  //sacar una mano de 5 cartas
+        var card = new ArrayList<Card>();
+        if (mimazo.isEmpty()){
+            throw new Exception("ya no quedan cartas");
+        }
+        else if (mimazo.size() < 5){
+            throw new Exception("te quedan menos de 5 cartas");
+        }
+        else {
+            for (int i = 1; i <= 5; i++){
+                card.add(pick());
             }
-        }else {
-            var cards = new ArrayList<Card>();
-            Card card;
-            for (int i=1;i<=5;i++){
-                card = randomCard();
-                mimazo.remove(card);
-                cards.add(card);
-            }
-            printHand(cards); //String format se utilizo para darle un valor String a un int
-            System.out.println(String.format(strFormat,mimazo.size()));
         }
     }
 
