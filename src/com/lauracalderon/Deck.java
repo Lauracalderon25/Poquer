@@ -9,7 +9,7 @@ public class Deck {
     private HashMap<String,String> PALOS = new HashMap<String, String>();
     private ArrayList<Card> mimazo = new ArrayList<Card>(); //se refiere al mazo con el que estas jugando
     private String strFormat = "Quedan %s";
-    int e;
+
 
     public ArrayList<Card> getMimazo() { //este metodo manda a llamar la clase Card
         return mimazo;
@@ -48,10 +48,10 @@ public class Deck {
         mimazo.remove(card);
         System.out.println(card.toString());
         System.out.println(String.format(strFormat,mimazo.size()));
-        e = mimazo.size();
-        if(e == 0){
+
+        if(mimazo.isEmpty())
             throw new Exception("Ya no quedan cartas");
-        }return;
+        return;
 
     }
     private Card randomCard(){  //Agarra cualquier carta al azar
@@ -64,10 +64,10 @@ public class Deck {
         mimazo.remove(card);
         System.out.println(card.toString());
         System.out.println(String.format(strFormat,mimazo.size()));
-        e = mimazo.size();
-        if(e == 0){
+
+        if(mimazo.isEmpty())
             throw new Exception("Ya no quedan cartas");
-        }
+
         return card;
     }
     private void printHand(ArrayList<Card> cards){
